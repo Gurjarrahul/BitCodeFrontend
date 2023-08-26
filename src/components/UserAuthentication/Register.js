@@ -22,7 +22,7 @@ const Register=()=>{
             let data={name,email,password,confirmPassword,remember,address,college};
             console.log(data);
             
-            const response=await fetch("/userregister",{
+            const response=await fetch("https://coding-platform-bitcode.onrender.com/userregister",{
               method: "POST",
               headers: {
                 "Accept": "application/json",

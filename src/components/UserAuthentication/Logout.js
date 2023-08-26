@@ -9,7 +9,7 @@ const Logout = () => {
     const navigate = useNavigate();
     let fun = async () => {
 
-        const res = await fetch('/userlogout', {
+        const res = await fetch('https://coding-platform-bitcode.onrender.com/userlogout', {
             method: 'DELETE',
             headers: {
                 'Contian-Type': 'application/json'

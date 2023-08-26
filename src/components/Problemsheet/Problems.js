@@ -54,7 +54,7 @@ useEffect(() => {
 }, [search, question]);
 
   let fun = async () => {
-    let response = await fetch('/qlist');
+    let response = await fetch('https://coding-platform-bitcode.onrender.com/qlist');
     let data = await response.json();
     setQuestion(data);
   };
@@ -93,21 +93,7 @@ useEffect(() => {
                 </tbody>
           </table>
         </div>
-        {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
-           <ReactPaginate
-      previousLabel={'Previous'}
-      nextLabel={'Next'}
-      breakLabel={'...'}
-      pageCount={Math.ceil(pagination.pageCount)}
-      marginPagesDisplayed={2}
-      pageRangeDisplayed={5}
-      onPageChange={handlePageClick}
-      containerClassName={'pagination'}
-      activeClassName={'active'}
-      subContainerClassName={'pages pagination'} 
-     
-    /> 
-        </div> */}
+        
       </div>
     </>
   )
