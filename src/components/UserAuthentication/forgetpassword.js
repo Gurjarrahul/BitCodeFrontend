@@ -9,7 +9,7 @@ let Forget = () => {
     event.preventDefault();
     console.log(email);
 
-    let res = await fetch('/sendmail', {
+    let res = await fetch('https://coding-platform-bitcode.onrender.com/sendmail', {
       method: 'POST',
       headers: 
       {

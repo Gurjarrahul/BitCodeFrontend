@@ -6,7 +6,7 @@ import { json, useParams } from 'react-router-dom'
 const Comments = () => {
   let [user_name,setName]=useState('');
   const  user=async ()=>{
-    const response=await fetch('/home',{
+    const response=await fetch('https://coding-platform-bitcode.onrender.com/home',{
         method:"GET",
         headers:{
          'Content-Type':'Application/json',

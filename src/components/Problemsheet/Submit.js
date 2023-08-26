@@ -15,7 +15,7 @@ const Submit=(props)=>{
       val.preventDefault();
       let Data={code:code,language:lan,input:input}
       console.log(Data);
-      let response=await fetch('/test',{
+      let response=await fetch('https://coding-platform-bitcode.onrender.com/test',{
         method:"POST",
         headers: {
           "Accept": "application/json",
