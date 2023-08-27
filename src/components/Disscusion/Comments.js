@@ -1,33 +1,22 @@
 import React from 'react'
 import './comm.css'
 import { useState,useEffect } from 'react'
-import { json, useParams } from 'react-router-dom'
+import { json, useParams,useNavigate } from 'react-router-dom'
 
 const Comments = () => {
-  let [user_name,setName]=useState('');
+  let navigate=useNavigate();
+  let [user_name,setName]=useState();
   const  user=async ()=>{
-    const response=await fetch('https://coding-platform-bitcode.onrender.com/home',{
-        method:"GET",
-        headers:{
-         'Content-Type':'Application/json',
-         'Access-Control-Allow-Origin':'*'
-        }
-    });
+    const response=await fetch('https://coding-platform-bitcode.onrender.com/home');
     let data=await response.json();
     setName(data.name);
   }
-  
+
   const [blog,setBlog] = useState([]);
   const [comment,setnewComment]=useState('');
   const [post,setnewPost]=useState('');
   const fun = async () => {
-    const response = await fetch('/discussion',{
-      method:"GET",
-      headers:{
-       'Content-Type':'Application/json',
-       'Access-Control-Allow-Origin':'*'
-      }
-    });
+    const response = await fetch('https://coding-platform-bitcode.onrender.com/discussion');
     let data = await response.json();
     setBlog(data);
     
@@ -35,7 +24,9 @@ const Comments = () => {
  let commenting=async(e)=>{
       e.preventDefault();
      const id=e.target.id;
-     let response=await fetch('/thread',{
+     if(user_name)
+     {
+     let response=await fetch('https://coding-platform-bitcode.onrender.com/thread',{
       method:"POST",
       headers:{
        'Content-Type':'Application/json',
@@ -45,6 +36,11 @@ const Comments = () => {
   });
   let data = await response.json();
   setBlog(data);
+   }
+   else{
+    window.alert('You are not login !');
+    navigate("/login");
+   }
   setnewComment('');
   setnewPost('');
 

@@ -3,18 +3,29 @@ import "../../App.css";
 import { useNavigate } from "react-router-dom";
 let answer=[];
 const Submit=(props)=>{
-  
+
   const navigate=useNavigate();
      let questinNo=props.p1;
      let [input,setInput]=useState(props.p2);
      let [lan,setLan]=useState('');
      let [code,setCode]=useState('');
      let [output,setOutput]=useState('');
-     
+     let [user_name,setName]=useState();
+     const  user=async ()=>{
+      const response=await fetch('https://coding-platform-bitcode.onrender.com/home');
+
+   let data=await response.json();
+    setName(data.name);
+    };
+     useEffect(()=>{
+      user();
+     },[]);
+
      let Run=async(val)=>{
       val.preventDefault();
+      if(user_name)
+      {
       let Data={code:code,language:lan,input:input}
-      console.log(Data);
       let response=await fetch('https://coding-platform-bitcode.onrender.com/test',{
         method:"POST",
         headers: {
@@ -29,13 +40,22 @@ const Submit=(props)=>{
       }
       else
       setOutput(output.data);
+    }
+    else
+    {
+      window.alert('You are not login !');
+      navigate('/login');
+    }
      }
-     
+
      let submitCode=async (val)=>{
       val.preventDefault();
+      
+      if(user_name)
+      {
       let Data={no:questinNo,code:code,language:lan,input:input}
       
-      let response=await fetch('/submit',{
+      let response=await fetch('https://coding-platform-bitcode.onrender.com/submit',{
         method:"POST",
         headers: {
           "Accept": "application/json",
@@ -50,6 +70,12 @@ const Submit=(props)=>{
       else{
         answer=output.result;
         navigate('/accp');
+      }
+      }
+      else
+      {
+        window.alert('You are not login !');
+        navigate('/login');
       }
      }
     
