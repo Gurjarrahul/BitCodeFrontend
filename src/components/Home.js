@@ -2,7 +2,8 @@ import React from "react";
 import '../App.css';
 import { useState,useEffect } from "react";
 import {NavLink,useNavigate} from 'react-router-dom';
-import './Style/Home.css'
+import './Style/Home.css';
+import axios from 'axios';
 let Home=()=>{
     const navigate=useNavigate();
        const [question,setQuestion]=useState([]);
@@ -15,8 +16,9 @@ let Home=()=>{
        let [image,setImage]=useState();
 
        const fun=async ()=>{
-        const response=await fetch('https://coding-platform-bitcode.onrender.com/home');
-        let data=await response.json();
+        axios.get('https://coding-platform-bitcode.onrender.com/home')
+       .then(response => {
+         let data=await response.json();
         setName(data.name);
         setEmail(data.email);
         setAddress(data.address);
@@ -33,6 +35,29 @@ let Home=()=>{
         }
         setQuestion(data.history);
        };
+        console.log(response.data);
+       })
+       .catch(error => {
+       console.error(error);
+       });
+        // const response=await fetch('https://coding-platform-bitcode.onrender.com/home');
+       //  let data=await response.json();
+       //  setName(data.name);
+       //  setEmail(data.email);
+       //  setAddress(data.address);
+       //  setCollege(data.college);
+       //  setSolved(data.solved);
+       //  setAttempted(data.attempted);
+       //  setImage(data.image);
+       //  if(data.messageToUser!=''){
+       //  Window.alert(data.messageToUser);
+       //  navigate('/login')}
+       //  let arr=[];
+       //  for(let i in data.history){
+       //    arr.push(i);
+       //  }
+       //  setQuestion(data.history);
+       // };
        
        useEffect(()=>{
         fun();
