@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../Style/problems.css'
 import Problem from './Question';
 import Acc from './testCaseStatus';
+import axios from 'axios';
 let q = 0;
 const Question = (props) => 
 {
@@ -40,10 +41,18 @@ useEffect(() => {
   
 }, [search, question]);
 
-  let fun = async () => {
-    let response = await fetch('https://coding-platform-bitcode.onrender.com/qlist');
-    let data = await response.json();
-    setQuestion(data);
+  let fun = () => {
+    // let response = await fetch('https://coding-platform-bitcode.onrender.com/qlist');
+    axios.get(apiUrl)
+      .then(response => {
+      let data = await response.json();
+        setQuestion(data);
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    
   };
   useEffect(() => {
     fun();
